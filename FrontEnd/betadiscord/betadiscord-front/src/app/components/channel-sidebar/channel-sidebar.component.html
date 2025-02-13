@@ -1,0 +1,100 @@
+<div class="channel-sidebar">
+  <h3>Channel Members</h3>
+
+  <!-- ➕ Add User Button -->
+  <button class="add-user-btn" (click)="openUserSearchModal()">+ Add User</button>
+
+  <!-- 👑 Owner Section -->
+  <div class="channel-sidebar-section">
+    <h4>Owner</h4>
+    <ul>
+      <li *ngFor="let owner of users?.owners" (contextmenu)="handleRightClick($event, 'owner', owner.id)">
+        {{ owner.username }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- 🛠️ Admin Section -->
+  <div class="channel-sidebar-section">
+    <h4>Admins</h4>
+    <ul>
+      <li *ngFor="let admin of users?.admins" (contextmenu)="handleRightClick($event, 'admin', admin.id)">
+        {{ admin.username }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- 👥 Guest Section -->
+  <div class="channel-sidebar-section">
+    <h4>Guests</h4>
+    <ul>
+      <li *ngFor="let guest of users?.guests" (contextmenu)="handleRightClick($event, 'guest', guest.id)">
+        {{ guest.username }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="delete-channel-container">
+    <button *ngIf="isOwner" class="delete-channel-btn" (click)="openDeleteConfirmation()">🗑️ Delete Channel</button>
+  </div>
+</div>
+
+<!-- ✅ Rounded Context Menu (Right-Click Actions) -->
+<div *ngIf="contextMenuVisible && selectedUser" class="context-menu"
+  [ngStyle]="{'top.px': contextMenuPosition.y, 'left.px': contextMenuPosition.x}">
+
+  <button *ngIf="selectedUser?.id && canPromoteToAdmin(selectedUser.id)"
+    (click)="promoteToAdmin(selectedUser.id)">Promote to Admin</button>
+
+  <button *ngIf="selectedUser?.id && canDemoteAdmin(selectedUser.id)" (click)="demoteAdmin(selectedUser.id)">Demote to
+    Guest</button>
+
+  <button *ngIf="selectedUser?.id && canRemoveUser(selectedUser.id)" (click)="removeUser(selectedUser.id)">Remove from
+    Channel</button>
+</div>
+
+<!-- ✅ Background Blur for Add User Modal -->
+<div *ngIf="isUserSearchModalOpen" class="user-search-modal-background"></div>
+
+<!-- ✅ User Search Modal -->
+<div class="user-search-modal" *ngIf="isUserSearchModalOpen">
+  <div class="modal-content">
+    <h2>Add User to Channel</h2>
+
+    <!-- 🔍 Search Input -->
+    <input type="text" [(ngModel)]="searchQuery" (input)="searchUsers()" placeholder="Search users...">
+
+    <!-- 📋 User List -->
+    <ul>
+      <li *ngFor="let user of searchResults">
+        {{ user.username }}
+
+        <!-- 🔽 Role Selection (Only for Owners) -->
+        <select *ngIf="isOwner" [(ngModel)]="selectedRole[user.id]">
+          <option value="GUEST">Guest</option>
+          <option value="ADMIN">Admin</option>
+        </select>
+
+        <!-- ➕ Add Button -->
+        <button (click)="addUserToChannel(user.id)">Add</button>
+      </li>
+    </ul>
+
+    <!-- ❌ Close Modal Button -->
+    <button class="close-btn" (click)="closeUserSearchModal()">Close</button>
+  </div>
+</div>
+
+<!-- ✅ Background Blur for Delete Confirmation Modal -->
+<div *ngIf="isDeleteModalOpen" class="delete-modal-background"></div>
+
+<!-- ✅ Delete Confirmation Modal -->
+<div class="delete-modal" *ngIf="isDeleteModalOpen">
+  <div class="modal-content">
+    <h3>⚠️ Confirm Deletion</h3>
+    <p>Are you sure you want to delete this channel? This action cannot be undone.</p>
+
+    <button class="confirm-btn" (click)="deleteChannel()">Yes, Delete</button>
+    <button class="cancel-btn" (click)="closeDeleteConfirmation()">Cancel</button>
+  </div>
+</div>

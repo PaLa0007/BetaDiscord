@@ -1,0 +1,35 @@
+<div class="channel-container">
+
+  <!-- Chat Messages -->
+  <div class="chat-main">
+    <div class="chat-header">
+      <!-- ✅ Channel Name with Edit Option -->
+      <h2 *ngIf="!isEditingName" (click)="startEditingChannelName()" class="editable-title">
+        {{ channelName }}
+        <span *ngIf="isAdminOrOwner" class="edit-icon">✏️</span>
+      </h2>
+
+      <!-- ✅ Editable Channel Name Input -->
+      <div *ngIf="isEditingName" class="edit-channel-name">
+        <input [(ngModel)]="newChannelName" />
+        <button (click)="saveChannelName()">Save</button>
+        <button (click)="cancelEditingChannelName()">Cancel</button>
+      </div>
+    </div>
+
+    <div class="chat-messages">
+      <div *ngFor="let message of messages" 
+           [ngClass]="{'message': true, 'you': message.sender.id === loggedInUserId, 'other': message.sender.id !== loggedInUserId}">
+        <strong>{{ message.sender.username }}</strong>: {{ message.content }}
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input [(ngModel)]="newMessage" placeholder="Type a message..." />
+      <button (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- ✅ Right Sidebar (Channel Members Sidebar) -->
+  <app-channel-sidebar></app-channel-sidebar>
+</div>

@@ -1,0 +1,14 @@
+<div class="layout">
+  <div class="sidebar">
+    <app-sidebar></app-sidebar> <!-- ✅ Left Sidebar (Always Visible) -->
+  </div>
+
+  <div class="main-content">
+    <router-outlet></router-outlet> <!-- ✅ Main Chat Area -->
+  </div>
+
+  <!-- ✅ Right Sidebar Only Visible in a Channel -->
+  <!-- <div class="channel-sidebar" *ngIf="isInChannel()">
+        <app-channel-sidebar></app-channel-sidebar> 
+    </div> -->
+</div>

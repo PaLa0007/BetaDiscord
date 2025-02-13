@@ -1,0 +1,90 @@
+<div class="sidebar-container">
+    <!-- Search & Create Buttons -->
+    <div class="sidebar-header">
+        <!-- 🔍 Search Friends Button -->
+        <button class="icon-button" (click)="openFriendSearchModal()">
+            🔍 <!-- Search Icon -->
+        </button>
+
+        <!-- ➕ Create Channel Button -->
+        <button class="icon-button" (click)="openCreateChannelModal()">
+            ➕ <!-- Create Icon -->
+        </button>
+    </div>
+
+    <!-- Channels List -->
+    <div class="sidebar-section">
+        <h3>Channels</h3>
+        <div *ngFor="let channel of channels" class="sidebar-item" (click)="goToChannel(channel.id)">
+            {{ channel.name }}
+        </div>
+    </div>
+
+    <!-- Friends List -->
+    <div class="sidebar-section">
+        <h3>Friends</h3>
+        <div *ngFor="let friend of friends" class="sidebar-item" (click)="goToFriend(friend.id)"
+            (contextmenu)="handleFriendRightClick($event, friend)">
+            {{ friend.username }}
+        </div>
+    </div>
+
+    <!-- ✅ Right-Click Friend Context Menu -->
+    <div *ngIf="isFriendContextMenuOpen && selectedFriend" class="friend-context-menu"
+        [ngStyle]="{'top.px': contextMenuPosition.y, 'left.px': contextMenuPosition.x}">
+        <button *ngIf="selectedFriend && selectedFriend.id !== undefined" (click)="removeFriend(selectedFriend.id)">
+            Remove Friend
+        </button>
+    </div>
+
+    <!-- Logout Button -->
+    <div class="logout-container">
+        <button class="logout-button" (click)="logout()">Logout</button>
+    </div>
+</div>
+
+<!-- ✅ Background Blur when Modal is Open -->
+<div *ngIf="isFriendSearchModalOpen" class="friend-modal-background"></div>
+
+<!-- ✅ Friend Search Modal -->
+<div class="friend-search-modal" *ngIf="isFriendSearchModalOpen">
+    <div class="modal-content">
+        <h2>Add Friend</h2>
+        <input type="text" [(ngModel)]="friendSearchQuery" (input)="searchFriends()" placeholder="Search users...">
+
+        <ul>
+            <li *ngFor="let user of friendSearchResults">
+                {{ user.username }}
+
+                <!-- ✅ If already a friend, show "Added" in green -->
+                <span *ngIf="isAlreadyFriend(user.id)" class="added-friend">✅ Added</span>
+
+                <!-- ➕ If NOT a friend, show "Add" button -->
+                <button *ngIf="!isAlreadyFriend(user.id)" (click)="addFriend(user.id)">Add</button>
+            </li>
+        </ul>
+
+        <!-- ❌ Close Modal Button -->
+        <button class="close-btn" (click)="closeFriendSearchModal()">Close</button>
+    </div>
+</div>
+
+<!-- ✅ Background Blur when Create Channel Modal is Open -->
+<div *ngIf="isCreateChannelModalOpen" class="modal-background"></div>
+
+<!-- ✅ Create Channel Modal -->
+<div class="create-channel-modal" *ngIf="isCreateChannelModalOpen">
+    <div class="modal-content">
+        <h2>Create Channel</h2>
+
+        <!-- 🏷️ Channel Name Input -->
+        <input type="text" [(ngModel)]="newChannelName" placeholder="Enter channel name">
+
+        <!-- ➕ Create Button -->
+        <button class="confirm-btn" (click)="createChannel()">Create</button>
+
+        <!-- ❌ Close Modal -->
+        <button class="close-btn" (click)="closeCreateChannelModal()">Cancel</button>
+    </div>
+</div>
+

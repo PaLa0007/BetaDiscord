@@ -1,0 +1,97 @@
+/* ✅ Main Channel Container */
+.channel-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  justify-content: center;
+  align-items: stretch;
+  padding: 1%;
+}
+
+/* 💬 Chat Main Section */
+.chat-main {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: white;
+  padding: 2%;
+  height: 100vh;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 2%;
+}
+
+/* 🏷️ Chat Header */
+.chat-header {
+  text-align: center;
+  font-size: 1.5vw;
+  font-weight: bold;
+  padding: 0.5%;
+  border-bottom: 2px solid #CCC;
+}
+
+/* ✅ Editable Channel Name */
+.editable-title {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.edit-icon {
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-left: 5px;
+  color: #15808D;
+}
+
+.edit-icon:hover {
+  color: #124E57;
+}
+
+/* 📜 Messages Wrapper */
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+}
+
+/* 💬 Messages - Bubble Styling */
+.message {
+  max-width: 55%;
+  padding: 1% 2%;
+  border-radius: 1vw;
+  margin-bottom: 1%;
+  word-wrap: break-word;
+  font-size: 1.2vw;
+}
+
+/* 🟢 Your Own Messages */
+.you {
+  background-color: #15808D;
+  color: white;
+  align-self: flex-end;
+  text-align: right;
+}
+
+/* 🔵 Other Users' Messages */
+.other {
+  background-color: #D3D3D3;
+  color: black;
+  align-self: flex-start;
+  text-align: left;
+}
+
+/* ✅ Right Sidebar */
+app-channel-sidebar {
+  width: 15%;
+  height: 100vh;
+  background-color: #124E57;
+  color: white;
+  padding: 2%;
+  overflow-y: auto;
+}

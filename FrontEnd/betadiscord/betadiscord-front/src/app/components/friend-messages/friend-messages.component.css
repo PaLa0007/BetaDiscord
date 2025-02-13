@@ -1,0 +1,85 @@
+/* ✅ Match Channel Messages CSS - Chat Bubbles, Colors, Layout */
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-left: 1px solid #ddd;
+}
+
+/* ✅ Header (Friend's Name Display) */
+.chat-header {
+  background-color: #15808D;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* ✅ Messages Section (Chat Bubbles) */
+.chat-messages {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ✅ Message Bubbles */
+.my-message {
+  align-self: flex-end;
+  background-color: #15808D;
+  color: white;
+  padding: 10px;
+  border-radius: 15px;
+  max-width: 60%;
+  margin: 5px 0;
+  text-align: right;
+}
+
+.other-message {
+  align-self: flex-start;
+  background-color: #E0E0E0;
+  color: black;
+  padding: 10px;
+  border-radius: 15px;
+  max-width: 60%;
+  margin: 5px 0;
+  text-align: left;
+}
+
+/* ✅ Input Section */
+.chat-input {
+  display: flex;
+  padding: 15px;
+  background-color: white;
+  border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* ✅ Send Button (Same Color as Channel Messages) */
+.chat-input button {
+  margin-left: 10px;
+  padding: 10px 15px;
+  background-color: #15808D; /* ✅ Now the same as Channel Messages */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: #12666E; /* ✅ Darker Hover State */
+}
